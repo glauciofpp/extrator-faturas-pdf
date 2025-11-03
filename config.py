@@ -1,2 +1,3 @@
-LOG_FOLDER = r"Logs"
+LOGS_FOLDER = r"Logs"
 FATURAS_FOLDER = r"Faturas"
+LOGGING_LEVEL = "DEBUG"
