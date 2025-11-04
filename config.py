@@ -1,3 +1,5 @@
 LOGS_FOLDER = r"Logs"
 FATURAS_FOLDER = r"Faturas"
+PATTERNS_FOLDER = r"Patterns"
+
 LOGGING_LEVEL = "DEBUG"

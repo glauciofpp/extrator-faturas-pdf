@@ -1,5 +1,5 @@
 import os
-from Modulos import extract_text_from_pdf
+from Modulos import extract_text_from_pdf, discover_concessionaria, get_data
 from Modulos import logger
 
 from config import FATURAS_FOLDER
@@ -19,7 +19,10 @@ def start_processing():
     faturas = get_faturas_from_folder(FATURAS_FOLDER)
     for fatura in faturas:
         logger.debug(f"Processando o arquivo: {fatura}")
-        print(extract_text_from_pdf(fatura))
-    
+        text = extract_text_from_pdf(fatura)
+        concessionaria = discover_concessionaria(text)
+        logger.debug(f"Concessionária identificada para {fatura}: {concessionaria}")
+        data = get_data(text, concessionaria)
+        print(f"Dados extraídos da fatura {fatura}: {data}")
 
 start_processing()
