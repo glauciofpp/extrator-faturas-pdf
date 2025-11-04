@@ -1,5 +1,5 @@
 .venv/
 .vscode
 __pycache__/
-/Faturas/*
-/Logs/*
+/Faturas/
+/Logs/
