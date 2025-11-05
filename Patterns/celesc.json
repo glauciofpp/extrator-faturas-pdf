@@ -1,5 +1,8 @@
 {
     "patterns":{
-        "uc": "NOME:[\\s\\S]*?(\\d{8})"
+        "uc": "NOME:[\\s\\S]*?(\\d{8})",
+        "referencia": "(?:\\s|^)(\\d{2}\\/\\d{4})\\b",
+        "vencimento": "Protocolo[.\\n\\S\\D]*?(\\d{2}\\/\\d{2}\\/\\d{4})\\s+R\\$",
+        "valor_total": "\\bTOTAL\\s*(.*)"
     }
 }

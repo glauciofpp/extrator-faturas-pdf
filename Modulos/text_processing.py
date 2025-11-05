@@ -22,6 +22,9 @@ def get_data(text: str, concessionaria: str) -> dict:
         with open(f"{PATTERNS_FOLDER}/{concessionaria}.json", "r", encoding="utf-8") as file:
             patterns = json.load(file)["patterns"]
         data["uc"] = extract_uc(text, patterns)
+        data["referencia"] = extract_referencia(text, patterns)
+        data["vencimento"] = extract_vencimento(text, patterns)
+        data["valor_total"] = extract_valor_total(text, patterns)
         return data
     except Exception:
         logger.error(f"Erro ao carregar padrões para a concessionária: {concessionaria}")
@@ -37,4 +40,19 @@ def extract_single_value(text: str, pattern: str) -> str|None:
 def extract_uc(text: str, patterns: dict) -> str|None:
     pattern_key = "uc"
     logger.debug(f"Extraindo UC usando o padrão: {patterns.get(pattern_key, '')}")
+    return extract_single_value(text, patterns.get(pattern_key, ""))
+
+def extract_referencia(text: str, patterns: dict) -> str|None:
+    pattern_key = "referencia"
+    logger.debug(f"Extraindo mês de referência usando o padrão: {patterns.get(pattern_key, '')}")
+    return extract_single_value(text, patterns.get(pattern_key, ""))
+
+def extract_vencimento(text: str, patterns: dict) -> str|None:
+    pattern_key = "vencimento"
+    logger.debug(f"Extraindo data de vencimento usando o padrão: {patterns.get(pattern_key, '')}")
+    return extract_single_value(text, patterns.get(pattern_key, ""))
+
+def extract_valor_total(text: str, patterns: dict) -> str|None:
+    pattern_key = "valor_total"
+    logger.debug(f"Extraindo valor total usando o padrão: {patterns.get(pattern_key, '')}")
     return extract_single_value(text, patterns.get(pattern_key, ""))
