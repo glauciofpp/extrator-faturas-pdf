@@ -16,3 +16,8 @@ def extract_text_from_pdf(pdf_path: str) -> str:
         logger.error(f"Erro ao extrair texto do arquivo PDF {pdf_path}: {e}")
         text = ""
     return text
+
+def format_endereco(text: str) -> str:
+    lines = text.splitlines()
+    formatted_lines = [line.strip() for line in lines if line.strip()]
+    return "\n".join(formatted_lines)

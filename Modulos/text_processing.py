@@ -1,7 +1,8 @@
-import re
 import json
+import re
 
 from .logger import logger
+from .utils import extract_single_value, extract_multiple_value, treat_endereco
 from config import PATTERNS_FOLDER
 
 def discover_concessionaria(text: str) -> str|bool:
@@ -25,17 +26,13 @@ def get_data(text: str, concessionaria: str) -> dict:
         data["referencia"] = extract_referencia(text, patterns)
         data["vencimento"] = extract_vencimento(text, patterns)
         data["valor_total"] = extract_valor_total(text, patterns)
+        data["cod_cli"] = extract_cod_cli(text, patterns)
+        data["endereco"] = extract_endereco(text, patterns)
+
         return data
-    except Exception:
+    except Exception as e:
         logger.error(f"Erro ao carregar padrões para a concessionária: {concessionaria}")
         return data
-
-def extract_single_value(text: str, pattern: str) -> str|None:
-    match = re.search(pattern, text, re.IGNORECASE)
-    logger.debug(f"Extração com o padrão: {pattern} | Resultado: {match.group(1).strip() if match else 'Nenhum resultado encontrado'}")  
-    if match:
-        return match.group(1).strip()
-    return None
 
 def extract_uc(text: str, patterns: dict) -> str|None:
     pattern_key = "uc"
@@ -56,3 +53,14 @@ def extract_valor_total(text: str, patterns: dict) -> str|None:
     pattern_key = "valor_total"
     logger.debug(f"Extraindo valor total usando o padrão: {patterns.get(pattern_key, '')}")
     return extract_single_value(text, patterns.get(pattern_key, ""))
+
+def extract_cod_cli(text: str, patterns: dict) -> str|None:
+    pattern_key = "cod_cli"
+    logger.debug(f"Extraindo Codigo do cliente usando o padrão: {patterns.get(pattern_key, '')}")
+    return extract_single_value(text, patterns.get(pattern_key, ""))
+
+def extract_endereco(text: str, patterns: dict) -> str|None:
+    pattern_key = "endereco"
+    logger.debug(f"Extraindo endereço usando o padrão: {patterns.get(pattern_key, '')}")
+    endereco = extract_multiple_value(text, patterns.get(pattern_key, ""))
+    return treat_endereco(endereco)
