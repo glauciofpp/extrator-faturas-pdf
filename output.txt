@@ -1,0 +1,13 @@
+uc: 23803429
+referencia: 09/2025
+vencimento: 10/10/2025
+valor_total: 503,51
+cod_cli: 56987347
+endereco: PROF ANTONIO ESTANISLAU AYROSO 381 CX 01 - NOVA BRASILIA-
+dias_fat: 30
+consumo: 532
+medidor: 2754349
+cosip: 27,39
+pis: 2,33
+cofins: 10,73
+icms: 15,44
